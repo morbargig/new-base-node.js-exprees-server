@@ -1,6 +1,6 @@
-import * as express from 'express';
+import express from 'express';
 import * as bodyParser from 'body-parser';
-import * as helmet from 'helmet';
+import helmet from 'helmet';
 import * as http from 'http';
 import {
   userErrorHandler,
@@ -20,7 +20,6 @@ export class Server {
   public static startServer(): Server {
     if (!this.serverInstance) {
       this.serverInstance = new Server();
-      return this.serverInstance;
     }
     return this.serverInstance;
   }

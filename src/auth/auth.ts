@@ -13,7 +13,7 @@ const auth = (req, res, next) => {
         return res.status(400).json({ message: "You must send valid token! no token found" })
     }
     try {
-        verify(token, config.AUTH.secretToken, async (err, user) => {
+        verify(token, config.auth.secretToken, async (err, user) => {
             if (err) {
                 return res.sendStatus(403);
             }

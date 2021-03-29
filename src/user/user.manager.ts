@@ -2,7 +2,6 @@ import { UserNotFoundError, InValidPassword } from '../utils/errors/applicationE
 import { User } from './user.interface';
 import { UserRepository } from './user.repository';
 import { LoginContext, AuthorizationEntity, RegisterContext } from '../auth/auth.interfaces';
-import { resolve } from 'node:path';
 import { compare, hash, genSalt } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { config } from '../config';
@@ -11,7 +10,7 @@ export class UserManager {
 
   static genUserToken = (_item) => {
     // generate new token with my secret 
-    const token = sign(_item, config.AUTH.secretToken);
+    const token = sign(_item, config.auth.secretToken);
     return token;
   }
 
@@ -19,7 +18,23 @@ export class UserManager {
     const salt = await genSalt(10);
     // password encryption
     registerData.pass = await hash(registerData.pass, salt);
-    return UserRepository.register(registerData);
+    let user = await UserRepository.register(registerData) as User
+    if (!user) throw new UserNotFoundError();
+    let newToken = UserManager.genUserToken({ _id: user._id, employId: user.employId });
+    // TODO add refresh token 
+    let expiresDate: Date = new Date()
+    expiresDate.setFullYear(new Date().getFullYear() + 1)
+    let authObj: AuthorizationEntity = {
+      employId: user.employId,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      authorized: true,
+      expiresIn: expiresDate,
+      accessToken: newToken,
+      admin: user?.role ? ('admin' in user?.role || 'ADMIN' in user?.role) : null,
+    }
+    return authObj
   }
 
   static async login(loginData: LoginContext) {

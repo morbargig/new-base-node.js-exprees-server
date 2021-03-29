@@ -11,14 +11,21 @@ export const UserSchema: mongoose.Schema = new mongoose.Schema(
     lastName: {
       type: String,
     },
+    class: {
+      type: String,
+    },
+    job: {
+      type: String,
+    },
     email: {
       type: String,
       unique: true,
     },
-    password: {
+    pass: {
       type: String,
-      unique: true,
     },
+    employId: { type: Number },
+    phone: { type: Number },
     rule: {
       type: Array,
       default: new Array(),
@@ -28,19 +35,19 @@ export const UserSchema: mongoose.Schema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  {
-    timestamps: { createdAt: 'creationDate', updatedAt: 'updateDate' },
-    id: true,
-    versionKey: false,
-    toJSON: {
-      virtuals: true,
-      transform(doc, ret) {
-        const returnedValue = ret;
-        // eslint-disable-next-line no-underscore-dangle
-        delete returnedValue._id;
-      },
-    },
-  },
+  // {
+  //   timestamps: { createdAt: 'creationDate', updatedAt: 'updateDate' },
+  //   id: true,
+  //   versionKey: false,
+  //   toJSON: {
+  //     virtuals: true,
+  //     transform(doc, ret) {
+  //       const returnedValue = ret;
+  //       // eslint-disable-next-line no-underscore-dangle
+  //       delete returnedValue._id;
+  //     },
+  //   },
+  // },
 );
 
 UserSchema.post('save', (error: any, doc: any, next: any) => {

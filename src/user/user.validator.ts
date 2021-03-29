@@ -5,8 +5,8 @@ import {
   registerUserSchema,
   getByIdSchema,
   loginUserSchema,
-  updateUserSchema,
-  getManySchema,
+  // updateUserSchema,
+  // getManySchema,
 } from './user.schema';
 
 export class UserValidator {
@@ -19,15 +19,15 @@ export class UserValidator {
     if (UserValidator.isObjectValid(req.body, registerUserSchema)) next();
   }
 
-  static canUpdateUser(req: Request, res: Response, next: NextFunction) {
-    if (UserValidator.isObjectValid({ ...req.params, ...req.body }, updateUserSchema)) next();
+  // static canUpdateUser(req: Request, res: Response, next: NextFunction) {
+  //   if (UserValidator.isObjectValid({ ...req.params, ...req.body }, updateUserSchema)) next();
 
-  }
+  // }
 
-  static canGetManyUsers(req: Request, res: Response, next: NextFunction) {
-    if (UserValidator.isObjectValid({ ...req.query }, getManySchema)) next();
+  // static canGetManyUsers(req: Request, res: Response, next: NextFunction) {
+  //   if (UserValidator.isObjectValid({ ...req.query }, getManySchema)) next();
 
-  }
+  // }
 
   static canGetOrRemoveUser(req: Request, res: Response, next: NextFunction) {
     if (UserValidator.isObjectValid(req.params, getByIdSchema)) next();
