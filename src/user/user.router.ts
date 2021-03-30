@@ -6,7 +6,7 @@ import { UserController } from './user.controller';
 const UserRouter: Router = Router();
 
 UserRouter.post('/Register', UserValidator.canRegisterUser, wrapAsync(UserController.register));
-UserRouter.post('Login', UserValidator.canLoginUser, wrapAsync(UserController.login))
+UserRouter.post('/Login', UserValidator.canLoginUser, wrapAsync(UserController.login))
 
 // UserRouter.get('/:id', UserValidator.canGetOrRemoveUser, wrapAsync(UserController.get));
 // UserRouter.get('/', UserValidator.canGetManyUsers, wrapAsync(UserController.getMany));

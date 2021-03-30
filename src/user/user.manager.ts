@@ -57,7 +57,7 @@ export class UserManager {
       authorized: true,
       expiresIn: expiresDate,
       accessToken: newToken,
-      admin: 'admin' in user?.role || 'ADMIN' in user?.role,
+      admin: user?.role ? ('admin' in user?.role || 'ADMIN' in user?.role) : null,
     }
     return authObj
   }
