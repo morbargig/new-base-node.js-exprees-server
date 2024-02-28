@@ -5,4 +5,4 @@ git add . && git commit -m (echo by (whoami) at (date) | string collect) && git 
 # delete all branchs except the current branch 
 git branch | grep -v (git branch --show-current) | grep -v '^*' | xargs git branch -D # grep -v '^*'  and grep -v (git branch --show-current) doing the some => supposed to get the current branch
 # clone only development
-git clone --single-branch --branch development https://morbargig@bitbucket.org/ideodigital/wsi-client.git
+git clone --single-branch --branch development https://morbargig@bitbucket.org/<my-repo>
